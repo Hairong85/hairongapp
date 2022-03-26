@@ -1,6 +1,6 @@
 import React from 'react';
-import PatientInformation from './PatientInformation';
-import Diagnosis from './Diagnosis';
+import PatientInformation from '../Patient/PatientInformation';
+import Diagnosis from '../Patient/Diagnosis';
 
 const Home = () => {
       return (

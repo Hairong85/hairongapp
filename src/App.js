@@ -11,91 +11,30 @@ import Profile from "./components/Account/Profile";
 import Home from "./components/Home/Home";
 import About from "./components/Home/About";
 import {Nav} from 'react-bootstrap';
+import PatientInformation from "./components/Patient/PatientInformation";
+import Diagnosis from "./components/Patient/Diagnosis";
+import fetchPatients from "./components/Patient/patientFunctions";
+import PatientList from "./components/Patient/PatientList";
 
-
-
-
-
-
-
-// const App =()=>{
-//   const [showAddTask,setShowAddTask]=useState(false)
-
-//   const [tasks,setTasks]=useState([])
-
-//   useEffect(() => {
-//     const getTasks = async ()=>{
-//       const tasksFromServer = await fetchTasks()
-//       setTasks(tasksFromServer)
-//     }
-//    getTasks()
-//   },[])
-
-//   const fetchTasks = async()=>{
-//     const res= await fetch('http://localhost:5000/tasks')
-//     const data= await res.json()
-//     console.log(data)
-//     return data
-//   } 
-
-//     const addTask=async(task) => {
-//       // const id=Math.floor(Math.random()*10000)+1
-//       // const newTask ={id,...task}
-//       // setTasks([...tasks,newTask])
-//       const res=await fetch('http://localhost:5000/tasks',{
-//         method:'POST',
-//         headers:{
-//           'content-type':'application/json',
-//         },
-//         body:JSON.stringify(task),
-//       })
-//       const data=await res.json()
-//       setTasks([...tasks,data])
-//     }
-
-//     const deleteTask =async(id) =>{
-//       // console.log('delelte',id);
-//       await fetch(`http://localhost:5000/tasks/${id}`,{method:'DELETE'})
-//     setTasks(tasks.filter((task)=>task.id!==id))
-//     }
-
-//     const toggleReminder =(id)=>{
-//       setTasks(
-//         tasks.map(
-//           (task)=>task.id === id?{...task,reminder:!task.reminder}:task 
-//         )
-//       )
-//     }
-
-//   return (
-//     <router>
-//     <div className="container">
-//      <Header onAdd={()=>setShowAddTask(!showAddTask)} showAdd={showAddTask}/>
-//      <LoginButton/>
-//      <LogoutButton />
-//      {showAddTask && <AddTask onAdd={addTask}/>}
-//      {tasks.length>0?(<Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/>):('No Tasks To Show')}
-//      <route path='/' exact render={(props)=>(
-//        <>
-       
-//        </>
-//      )}/>
-//      <route path='/about' component={About}/>
-     
-//      <Footer />
-//     </div>
-//     </router>
-//   );
-// }
 
 
 const App = ()=>{
+  const [patients, setPatients] = useState([]);
+  useEffect(()=>{
+    const getPatients = async()=>{
+      const patientsFromServer = await fetchPatients()
+      setPatients(patientsFromServer)
+    }
+    getPatients()
+  })
   return (
     <Router>
       <div>
         <Nav variant="tabs">
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/Profile">Profile</Nav.Link>
+          <Nav.Link href="/Patients">Patients</Nav.Link>
+          <Nav.Link href="/Patient">New Patient</Nav.Link>
           <Nav.Link href="/About">About</Nav.Link>
         </Nav>
       </div>
@@ -105,6 +44,9 @@ const App = ()=>{
       <div>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/Patients" element={<PatientList patients={patients} />} />
+          <Route path="/Patient" element={<PatientInformation />} />
+          <Route path="/Diagnosis" element={<Diagnosis />} />
           <Route path="/About" element={<About />} />
           <Route path="/Profile" element={<Profile />} />
         </Routes>
