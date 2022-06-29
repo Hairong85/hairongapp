@@ -14,7 +14,7 @@ import {Nav} from 'react-bootstrap';
 import PatientInformation from "./components/Patient/PatientInformation";
 import Diagnosis from "./components/Patient/Diagnosis";
 import fetchPatients from "./components/Patient/patientFunctions";
-import PatientList from "./components/Patient/PatientList";
+import Patients from "./components/Patient/Patients";
 
 
 
@@ -44,7 +44,7 @@ const App = ()=>{
       <div>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Patients" element={<PatientList patients={patients} />} />
+          <Route path="/Patients" element={<Patients patients={patients} />} />
           <Route path="/Patient" element={<PatientInformation />} />
           <Route path="/Diagnosis" element={<Diagnosis />} />
           <Route path="/About" element={<About />} />

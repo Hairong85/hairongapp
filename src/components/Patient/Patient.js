@@ -1,6 +1,6 @@
 import React from 'react'
 
-function PatientItem({patient}) {
+function Patient({patient}) {
   return (
         <tr>
                 <td>
@@ -19,4 +19,4 @@ function PatientItem({patient}) {
   )
 }
 
-export default PatientItem
+export default Patient

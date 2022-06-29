@@ -1,9 +1,19 @@
 import React from 'react'
-import PatientItem from './PatientItem'
+import Patient from './Patient'
+import {useAuth0} from '@auth0/auth0-react';
+import UsersFunction from '../Users/UsersFunction';
 
-const PatientList = ({patients}) => {
+
+const Patients = ({patients}) => {
+        const {loginWithRedirect, logout, isAuthenticated} = useAuth0();
+        const {user} = useAuth0();
+        const roles = UsersFunction(user.email)
   return (
-        <table>
+        isAuthenticated&&(
+                roles.map(r=>r.roleName).includes("doctor")
+        )?
+          
+        (<table>
                 <tr>
                         <th>
                                 First Name
@@ -20,12 +30,13 @@ const PatientList = ({patients}) => {
                 </tr>
                 {
                         patients.map(p =>(
-                            <PatientItem   patient={p} />
+                            <Patient   patient={p} />
                         ))
                 }
-        </table>
+        </table>):('')
+  
   )
 }
 
-export default PatientList
+export default Patients
 
