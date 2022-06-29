@@ -7,10 +7,11 @@ const UsersFunction = async(email) => {
                 if(res.status == 200){
                         const roles = (await res.json()).roles;
                         return roles;
+                }     
+                else{
+                        return [];
                 }
                         
-                else
-                        return [];
                 
         }
         catch(e){

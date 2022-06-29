@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Patient from './Patient'
 import {useAuth0} from '@auth0/auth0-react';
 import UsersFunction from '../Users/UsersFunction';
@@ -7,7 +7,15 @@ import UsersFunction from '../Users/UsersFunction';
 const Patients = ({patients}) => {
         const {loginWithRedirect, logout, isAuthenticated} = useAuth0();
         const {user} = useAuth0();
-        const roles = UsersFunction(user.email)
+        const [roles, setRoles] = useState(""); 
+        useEffect(() =>{
+                getRoles();
+        }, []);
+
+        const getRoles = async() =>{
+                setRoles(await UsersFunction(user?.email??""));
+        }
+
   return (
         isAuthenticated&&(
                 roles.map(r=>r.roleName).includes("doctor")
